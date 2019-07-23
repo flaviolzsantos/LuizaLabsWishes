@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LuizaLabs.Domain.Service;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LuizaLabs.Application.Api.Controllers
@@ -10,10 +11,16 @@ namespace LuizaLabs.Application.Api.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ISrvUser _srvUser;
+        public ValuesController(SrvUser srvUser)
+        {
+            _srvUser = srvUser;
+        }
         // GET api/values
         [HttpGet]
-        public ActionResult<IEnumerable<string>> Get()
+        public async Task<ActionResult<IEnumerable<string>>> GetAsync()
         {
+            await _srvUser.AddUserAsync();
             return new string[] { "value1", "value2" };
         }
 

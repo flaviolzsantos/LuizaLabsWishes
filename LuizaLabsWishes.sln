@@ -9,17 +9,19 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Domain", "2 - Domain", 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Infra", "3 - Infra", "{CE518FAD-E167-4A80-BED7-C73A93F47FA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuizaLabs.Application.Api", "LuizaLabs.Application.Api\LuizaLabs.Application.Api.csproj", "{126CF6FA-88C7-478A-AD5B-15CA7C6840FA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuizaLabs.Application.Api", "LuizaLabs.Application.Api\LuizaLabs.Application.Api.csproj", "{126CF6FA-88C7-478A-AD5B-15CA7C6840FA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuizaLabs.Domain.Entities", "LuizaLabs.Domain.Entities\LuizaLabs.Domain.Entities.csproj", "{C18884CA-6769-452C-B403-A4B44D5BD57D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuizaLabs.Domain.Entities", "LuizaLabs.Domain.Entities\LuizaLabs.Domain.Entities.csproj", "{C18884CA-6769-452C-B403-A4B44D5BD57D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuizaLabs.Domain.Service", "LuizaLabs.Domain.Service\LuizaLabs.Domain.Service.csproj", "{9EFBB458-C9FC-4C3A-908E-194257881306}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuizaLabs.Domain.Service", "LuizaLabs.Domain.Service\LuizaLabs.Domain.Service.csproj", "{9EFBB458-C9FC-4C3A-908E-194257881306}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuizaLabs.Infra.Data", "LuizaLabs.Infra.Data\LuizaLabs.Infra.Data.csproj", "{161C612A-492B-495D-8B2E-774BA5D5B78C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuizaLabs.Infra.Data", "LuizaLabs.Infra.Data\LuizaLabs.Infra.Data.csproj", "{161C612A-492B-495D-8B2E-774BA5D5B78C}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - UnitTest", "4 - UnitTest", "{8DA8763E-1AC5-465F-9436-9FC4A51F141A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuizaLabs.UnitTest", "LuizaLabs.UnitTest\LuizaLabs.UnitTest.csproj", "{836325AA-F27A-46B5-81BC-6BBBC57C4E12}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LuizaLabs.UnitTest", "LuizaLabs.UnitTest\LuizaLabs.UnitTest.csproj", "{836325AA-F27A-46B5-81BC-6BBBC57C4E12}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LuizaLabs.Infra.Cross", "LuizaLabs.Infra.Cross\LuizaLabs.Infra.Cross.csproj", "{D35A202E-ED43-42A8-9DDC-255AFCFA4B2E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{836325AA-F27A-46B5-81BC-6BBBC57C4E12}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{836325AA-F27A-46B5-81BC-6BBBC57C4E12}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{836325AA-F27A-46B5-81BC-6BBBC57C4E12}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D35A202E-ED43-42A8-9DDC-255AFCFA4B2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D35A202E-ED43-42A8-9DDC-255AFCFA4B2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D35A202E-ED43-42A8-9DDC-255AFCFA4B2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D35A202E-ED43-42A8-9DDC-255AFCFA4B2E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -57,6 +63,7 @@ Global
 		{9EFBB458-C9FC-4C3A-908E-194257881306} = {AD1400F3-A0FD-4558-B59F-D0B783FB1AEF}
 		{161C612A-492B-495D-8B2E-774BA5D5B78C} = {CE518FAD-E167-4A80-BED7-C73A93F47FA3}
 		{836325AA-F27A-46B5-81BC-6BBBC57C4E12} = {8DA8763E-1AC5-465F-9436-9FC4A51F141A}
+		{D35A202E-ED43-42A8-9DDC-255AFCFA4B2E} = {CE518FAD-E167-4A80-BED7-C73A93F47FA3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {EE71A0BE-8698-424C-895F-46C39F1A05A6}

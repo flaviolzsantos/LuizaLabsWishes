@@ -21,3 +21,6 @@
 /LuizaLabs.Domain.Service/bin/Debug/netcoreapp2.2
 /LuizaLabs.Infra.Data/bin/Debug/netcoreapp2.2
 /.vs/LuizaLabsWishes/DesignTimeBuild
+/LuizaLabs.Infra.Cross/obj/Debug/netcoreapp2.2
+/.vs/LuizaLabsWishes/config
+/LuizaLabs.Infra.Cross/obj

@@ -2,7 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LuizaLabs.Domain.Entities;
+using LuizaLabs.Domain.Service;
 using LuizaLabs.Infra.Data.Connection;
+using LuizaLabs.Infra.Data.Interfaces;
+using LuizaLabs.Infra.Data.Repository;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -32,7 +36,10 @@ namespace LuizaLabs.Application.Api
 
             services.AddScoped(x => x.GetService<ConnectionMongo>().GetMongoDatabase(Configuration.GetSection("AppSettings:MongoDataBase").Value));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<RepUser>();
+            services.AddScoped<SrvUser>();
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
