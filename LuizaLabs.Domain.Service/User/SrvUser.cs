@@ -15,10 +15,14 @@ namespace LuizaLabs.Domain.Service
             _repUser = repUser;
         }
 
-        public async Task AddUserAsync()
+        public async Task AddUserAsync(User user)
         {
-            User user = new User() { Email = "teste", Id = Guid.NewGuid(), Name = "Nome" };
             await _repUser.Add(user);
+        }
+
+        public async Task<IEnumerable<User>> GetUserPaginationAsync(int pageSize, int page)
+        {
+            return await _repUser.GetAll();
         }
 
 

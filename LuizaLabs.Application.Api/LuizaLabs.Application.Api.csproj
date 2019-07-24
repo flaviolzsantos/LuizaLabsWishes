@@ -7,11 +7,13 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\LuizaLabs.Domain.Entities\LuizaLabs.Domain.Entities.csproj" />
     <ProjectReference Include="..\LuizaLabs.Domain.Service\LuizaLabs.Domain.Service.csproj" />
+    <ProjectReference Include="..\LuizaLabs.Infra.Cross\LuizaLabs.Infra.Cross.csproj" />
   </ItemGroup>
 
 </Project>

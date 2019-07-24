@@ -1,14 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
+using LuizaLabs.Infra.Cross;
 using LuizaLabs.Infra.Data.Connection;
 using LuizaLabs.Infra.Data.Interfaces;
 using LuizaLabs.Infra.Data.Repository;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -49,6 +53,38 @@ namespace LuizaLabs.Application.Api
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseExceptionHandler(builder =>
+            {
+                builder.Run(async context =>
+                {
+                    context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                    context.Response.ContentType = "application/json";
+
+                    var error = context.Features.Get<IExceptionHandlerFeature>();
+                    string guidError = Guid.NewGuid().ToString();
+
+                    string mensagemErro = $"Erro no processamento. Por favor, entre em contato com com suporte. Erro={guidError}";
+
+
+                    if (error != null)
+                    {
+                        Exception ex = error.Error;
+
+                        while (ex.InnerException != null)
+                            ex = ex.InnerException;
+
+                        if (ex is ValidationException)
+                        {
+                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                            mensagemErro = ex.Message;
+                        }
+                        
+                    }
+
+                    await context.Response.WriteAsync(Newtonsoft.Json.JsonConvert.SerializeObject(new{ Erro = mensagemErro }));
+                });
+            });
 
             app.UseMvc();
         }

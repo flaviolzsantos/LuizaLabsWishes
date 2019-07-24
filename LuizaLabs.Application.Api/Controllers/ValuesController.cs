@@ -20,7 +20,7 @@ namespace LuizaLabs.Application.Api.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<string>>> GetAsync()
         {
-            await _srvUser.AddUserAsync();
+            
             return new string[] { "value1", "value2" };
         }
 
