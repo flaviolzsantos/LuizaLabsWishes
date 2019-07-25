@@ -28,6 +28,16 @@ namespace LuizaLabs.Infra.Data.Repository
 
         public virtual Task Remove(Guid id) => _dbSet.DeleteOneAsync(Builders<T>.Filter.Eq("_id", id));
 
-        
+        public async Task<List<T>> GetPaginationAsync(int pageSize, int page)
+        {
+            List<T> list = new List<T>();
+            await _mongoDatabase.GetCollection<T>(typeof(T).Name).Find(FilterDefinition<T>.Empty)
+                .Skip((pageSize * (page - 1)))
+                .Limit(pageSize).ForEachAsync(x => list.Add(x));
+
+            return list;
+        }
+
+
     }
 }

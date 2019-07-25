@@ -11,5 +11,6 @@ namespace LuizaLabs.Infra.Data.Interfaces
         Task Add(T obj);
         Task<IEnumerable<T>> GetAll();
         Task Update(T obj, Guid id);
+        Task<List<T>> GetPaginationAsync(int pageSize, int page);
     }
 }

@@ -22,9 +22,9 @@ namespace LuizaLabs.Application.Api.Controllers
         }
 
         [HttpGet]
-        public Task<IEnumerable<User>> GetUserAsync(int page_size, int page)
+        public async Task<List<User>> GetUserAsync(int page_size, int page)
         {
-            return _srvUser.GetUserPaginationAsync(page_size, page);
+            return await _srvUser.GetUserPaginationAsync(page_size, page);
         }
 
         [HttpPost]

@@ -9,6 +9,6 @@ namespace LuizaLabs.Domain.Service
     public interface ISrvUser
     {
         Task AddUserAsync(User user);
-        Task<IEnumerable<User>> GetUserPaginationAsync(int pageSize, int page);
+        Task<List<User>> GetUserPaginationAsync(int pageSize, int page);
     }
 }

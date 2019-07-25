@@ -1,4 +1,5 @@
 ﻿using LuizaLabs.Domain.Entities;
+using LuizaLabs.Infra.Cross;
 using LuizaLabs.Infra.Data.Repository;
 using System;
 using System.Collections.Generic;
@@ -20,9 +21,13 @@ namespace LuizaLabs.Domain.Service
             await _repUser.Add(user);
         }
 
-        public async Task<IEnumerable<User>> GetUserPaginationAsync(int pageSize, int page)
+        public async Task<List<User>> GetUserPaginationAsync(int pageSize, int page)
         {
-            return await _repUser.GetAll();
+            if (page <= 0 || pageSize < 0)
+                throw new ValidationException("Páginação incorreta");
+
+
+            return await _repUser.GetPaginationAsync(pageSize, page);
         }
 
 

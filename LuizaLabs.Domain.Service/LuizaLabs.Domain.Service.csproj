@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\LuizaLabs.Domain.Entities\LuizaLabs.Domain.Entities.csproj" />
+    <ProjectReference Include="..\LuizaLabs.Infra.Cross\LuizaLabs.Infra.Cross.csproj" />
     <ProjectReference Include="..\LuizaLabs.Infra.Data\LuizaLabs.Infra.Data.csproj" />
   </ItemGroup>
 
