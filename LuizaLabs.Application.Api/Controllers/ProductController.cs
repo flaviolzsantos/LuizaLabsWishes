@@ -5,11 +5,13 @@ using System.Net;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LuizaLabs.Application.Api.Controllers
 {
+    [Authorize]
     [Route("products")]
     [ApiController]
     public class ProductController : ControllerBase
@@ -21,6 +23,7 @@ namespace LuizaLabs.Application.Api.Controllers
             _srvProduct = srvProduct;
         }
 
+        
         [HttpGet]
         public async Task<List<Product>> GetProductrAsync(int page_size, int page)
         {

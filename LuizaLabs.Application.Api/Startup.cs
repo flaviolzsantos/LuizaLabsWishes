@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Text;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
@@ -9,6 +10,7 @@ using LuizaLabs.Infra.Cross;
 using LuizaLabs.Infra.Data.Connection;
 using LuizaLabs.Infra.Data.Interfaces;
 using LuizaLabs.Infra.Data.Repository;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +20,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
 namespace LuizaLabs.Application.Api
@@ -39,6 +42,11 @@ namespace LuizaLabs.Application.Api
                 return new ConnectionMongo(Configuration.GetConnectionString("MongoConnection"));
             });
 
+            services.AddSingleton(x =>
+            {
+                return Configuration;
+            });
+
             services.AddScoped(x => x.GetService<ConnectionMongo>().GetMongoDatabase(Configuration.GetSection("AppSettings:MongoDataBase").Value));
 
             services.AddScoped<IRepUser, RepUser>();
@@ -47,6 +55,22 @@ namespace LuizaLabs.Application.Api
             services.AddScoped<ISrvProduct, SrvProduct>();
             services.AddScoped<IRepWish, RepWish>();
             services.AddScoped<ISrvWish, SrvWish>();
+            services.AddScoped<ISrvAuthentication, SrvAuthentication>();
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidateAudience = false,
+                    ValidateIssuerSigningKey = true,
+                    ValidateLifetime = true,
+                    ClockSkew = TimeSpan.Zero,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration.GetSection("AppSettings:SecretKeyAuth").Value))
+                };
+            });
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options =>
@@ -106,11 +130,14 @@ namespace LuizaLabs.Application.Api
                         
                     }
 
-                    await context.Response.WriteAsync(Newtonsoft.Json.JsonConvert.SerializeObject(new{ Erro = mensagemErro }));
+                    await context.Response.WriteAsync(JsonConvert.SerializeObject(new{ Erro = mensagemErro }));
                 });
             });
 
+
+            app.UseAuthentication();
             app.UseMvc();
+            
         }
     }
 }
