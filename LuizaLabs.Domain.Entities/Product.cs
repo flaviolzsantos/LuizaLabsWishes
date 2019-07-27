@@ -4,9 +4,8 @@ using System.Text;
 
 namespace LuizaLabs.Domain.Entities
 {
-    public class User : BaseEntity
+    public class Product : BaseEntity
     {
         public string Name { get; set; }
-        public string Email { get; set; }
     }
 }

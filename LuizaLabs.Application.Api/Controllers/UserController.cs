@@ -16,7 +16,7 @@ namespace LuizaLabs.Application.Api.Controllers
     {
         private readonly ISrvUser _srvUser;
 
-        public UserController(SrvUser srvUser)
+        public UserController(ISrvUser srvUser)
         {
             _srvUser = srvUser;
         }
@@ -24,13 +24,13 @@ namespace LuizaLabs.Application.Api.Controllers
         [HttpGet]
         public async Task<List<User>> GetUserAsync(int page_size, int page)
         {
-            return await _srvUser.GetUserPaginationAsync(page_size, page);
+            return await _srvUser.GetPaginationAsync(page_size, page);
         }
 
         [HttpPost]
         public async Task CreateUserAsync(User user)
         {
-            await _srvUser.AddUserAsync(user);
+            await _srvUser.AddAsync(user);
         }
     }
 }

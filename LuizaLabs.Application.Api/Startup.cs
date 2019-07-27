@@ -40,8 +40,10 @@ namespace LuizaLabs.Application.Api
 
             services.AddScoped(x => x.GetService<ConnectionMongo>().GetMongoDatabase(Configuration.GetSection("AppSettings:MongoDataBase").Value));
 
-            services.AddScoped<RepUser>();
-            services.AddScoped<SrvUser>();
+            services.AddScoped<IRepUser, RepUser>();
+            services.AddScoped<ISrvUser, SrvUser>();
+            services.AddScoped<IRepProduct, RepProduct>();
+            services.AddScoped<ISrvProduct, SrvProduct>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }

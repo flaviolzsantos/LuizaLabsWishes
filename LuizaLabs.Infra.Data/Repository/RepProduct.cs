@@ -4,15 +4,14 @@ using MongoDB.Driver;
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace LuizaLabs.Infra.Data.Repository
 {
-    public class RepUser : Repository<User>, IRepUser
-    {        
-        public RepUser(IMongoDatabase mongoDatabase) : base(mongoDatabase)
+    public class RepProduct : Repository<Product>, IRepProduct
+    {
+        public RepProduct(IMongoDatabase mongoDatabase) : base(mongoDatabase)
         {
-            
-        }       
+
+        }
     }
 }

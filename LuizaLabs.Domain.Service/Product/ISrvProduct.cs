@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace LuizaLabs.Domain.Service
 {
-    public interface ISrvUser : ISrvBase<User>
+    public interface ISrvProduct : ISrvBase<Product>
     {
-        
+
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LuizaLabs.Infra.Data.Repository
 {
-    public abstract class Repository<T> : IRepository<T> where T : class
+    public abstract class Repository<T> where T : class
     {
         protected readonly IMongoDatabase _mongoDatabase;
         protected readonly IMongoCollection<T> _dbSet;
