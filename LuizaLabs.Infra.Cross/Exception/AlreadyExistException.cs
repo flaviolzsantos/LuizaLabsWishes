@@ -7,10 +7,7 @@ namespace LuizaLabs.Infra.Cross
 {
     public class AlreadyExistException : Exception
     {
-        public AlreadyExistException()
-        {
-        }
-
+       
         public AlreadyExistException(string message) : base(message)
         {
         }

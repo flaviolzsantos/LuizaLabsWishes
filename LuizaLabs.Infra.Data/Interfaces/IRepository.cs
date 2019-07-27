@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MongoDB.Bson;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,7 +12,7 @@ namespace LuizaLabs.Infra.Data.Interfaces
         Task Add(T obj);
         Task<IEnumerable<T>> GetAll();
         Task Update(T obj, Guid id);
-        Task<List<T>> GetPaginationAsync(int pageSize, int page);
+        Task<List<T>> GetPaginationAsync(int pageSize, int page, string[] fieldsToReturn = null);
         Task<bool> HasName(string name);
     }
 }

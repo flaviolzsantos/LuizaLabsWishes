@@ -21,7 +21,7 @@ namespace LuizaLabs.Domain.Service
         public async Task AddAsync(User user)
         {
             if (user == null)
-                throw new ValidationException("Paylod requerido");
+                throw new NotContentException(string.Empty);
 
             if (string.IsNullOrEmpty(user.Name))
                 throw new ValidationException("Nome requerido");
@@ -37,12 +37,34 @@ namespace LuizaLabs.Domain.Service
             if (page <= 0 || pageSize < 0)
                 throw new ValidationException("Páginação incorreta");
 
-            var list = await _repUser.GetPaginationAsync(pageSize, page);
+            var list = await _repUser.GetPaginationAsync(pageSize, page, new string[] { "Id", "Name", "Email" });
 
             if (!list.Any())
-                throw new NotContentException();
+                throw new NotFoundException("Lista de usuário não encontrado");
 
             return list;
+        }
+
+        public async Task<User> GetUserAsync(string userId)
+        {
+            if (string.IsNullOrEmpty(userId))
+                throw new NotContentException(string.Empty);
+
+            Guid guid;
+            if (!Guid.TryParse(userId, out guid))
+                throw new ValidationException("Usuário inválido");
+
+            User user = await _repUser.GetById(guid);
+
+            if (user == null)
+                throw new NotFoundException("Usuário não encontrado");
+
+            return user;
+        }
+
+        public async Task UpdateUserAsync(User user)
+        {
+            await _repUser.Update(user, user.Id);
         }
 
 

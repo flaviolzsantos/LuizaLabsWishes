@@ -2,12 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace LuizaLabs.Domain.Service
+namespace LuizaLabs.Infra.Data.Interfaces
 {
-    public interface ISrvProduct : ISrvBase<Product>
+    public interface IRepWish : IRepository<Wish>
     {
-
     }
 }

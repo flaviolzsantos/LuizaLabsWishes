@@ -21,7 +21,7 @@ namespace LuizaLabs.Domain.Service
         public async Task AddAsync(Product product)
         {
             if (product == null)
-                throw new ValidationException("Paylod requerido");
+                throw new NotContentException(string.Empty);
 
             if(string.IsNullOrEmpty(product.Name))
                 throw new ValidationException("Nome requerido");
@@ -37,9 +37,33 @@ namespace LuizaLabs.Domain.Service
             var list = await _repProduct.GetPaginationAsync(pageSize, page);
 
             if (!list.Any())
-                throw new NotContentException();
+                throw new NotFoundException("Lista de produto não encontrado");
 
             return list;
+        }
+
+        public async Task<List<Product>> GetProductAsync(List<Wish> listWishProducts)
+        {
+            if (!listWishProducts.Any())
+                throw new NotContentException(string.Empty);
+
+            List<Product> listProduct = new List<Product>();
+
+            foreach (var wishProduct in listWishProducts)
+            {
+                Guid guid;
+                if (!Guid.TryParse(wishProduct.IdProduct, out guid))
+                    throw new ValidationException($"Produto com id {wishProduct.IdProduct} inválido");
+
+                Product product = await _repProduct.GetById(guid);
+
+                if (product == null)
+                    throw new NotFoundException($"Produto com id {wishProduct.IdProduct} não encontrado");
+
+                listProduct.Add(product);
+            }
+
+            return listProduct;
         }
     }
 }

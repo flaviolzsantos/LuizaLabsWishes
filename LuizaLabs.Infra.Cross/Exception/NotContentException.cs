@@ -7,10 +7,6 @@ namespace LuizaLabs.Infra.Cross
 {
     public class NotContentException : Exception
     {
-        public NotContentException()
-        {
-        }
-
         public NotContentException(string message) : base(message)
         {
         }

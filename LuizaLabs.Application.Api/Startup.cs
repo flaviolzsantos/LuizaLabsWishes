@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 
 namespace LuizaLabs.Application.Api
 {
@@ -44,8 +45,14 @@ namespace LuizaLabs.Application.Api
             services.AddScoped<ISrvUser, SrvUser>();
             services.AddScoped<IRepProduct, RepProduct>();
             services.AddScoped<ISrvProduct, SrvProduct>();
+            services.AddScoped<IRepWish, RepWish>();
+            services.AddScoped<ISrvWish, SrvWish>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
+                .AddJsonOptions(options =>
+                {
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
+                }); ;
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
