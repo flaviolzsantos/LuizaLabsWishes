@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace LuizaLabs.Domain.Service
 {
@@ -19,6 +20,15 @@ namespace LuizaLabs.Domain.Service
 
         public async Task AddAsync(User user)
         {
+            if (user == null)
+                throw new ValidationException("Paylod requerido");
+
+            if (string.IsNullOrEmpty(user.Name))
+                throw new ValidationException("Nome requerido");
+
+            if (await _repUser.HasName(user.Name))
+                throw new AlreadyExistException("Não foi possível cadastrar esse usuário pois ele já está cadastrado");
+
             await _repUser.Add(user);
         }
 
@@ -27,8 +37,12 @@ namespace LuizaLabs.Domain.Service
             if (page <= 0 || pageSize < 0)
                 throw new ValidationException("Páginação incorreta");
 
+            var list = await _repUser.GetPaginationAsync(pageSize, page);
 
-            return await _repUser.GetPaginationAsync(pageSize, page);
+            if (!list.Any())
+                throw new NotContentException();
+
+            return list;
         }
 
 

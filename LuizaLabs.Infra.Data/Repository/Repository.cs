@@ -4,6 +4,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
+using System.Linq;
+using LuizaLabs.Infra.Cross;
 
 namespace LuizaLabs.Infra.Data.Repository
 {
@@ -18,7 +20,7 @@ namespace LuizaLabs.Infra.Data.Repository
             _dbSet = _mongoDatabase.GetCollection<T>(typeof(T).Name);
         }
 
-        public async Task<T> GetById(Guid id) => (await _dbSet.FindAsync(Builders<T>.Filter.Eq("_id", id))).FirstOrDefault();
+        public async Task<T> GetById(Guid id) => (await FindAsync("_id", id));
 
         public Task Add(T obj) => _dbSet.InsertOneAsync(obj);
 
@@ -33,10 +35,14 @@ namespace LuizaLabs.Infra.Data.Repository
             List<T> list = new List<T>();
             await _mongoDatabase.GetCollection<T>(typeof(T).Name).Find(FilterDefinition<T>.Empty)
                 .Skip((pageSize * (page - 1)))
-                .Limit(pageSize).ForEachAsync(x => list.Add(x));
+                .Limit(pageSize).ForEachAsync(x => list.Add(x));           
 
             return list;
         }
+
+        private async Task<T> FindAsync(string property, object value) => (await _dbSet.FindAsync(Builders<T>.Filter.Eq(property, value))).FirstOrDefault();
+
+        public async Task<bool> HasName(string name) => (await FindAsync("Name", name)) != null;
 
 
     }

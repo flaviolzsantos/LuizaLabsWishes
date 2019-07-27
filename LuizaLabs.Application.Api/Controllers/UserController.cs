@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
@@ -31,6 +32,7 @@ namespace LuizaLabs.Application.Api.Controllers
         public async Task CreateUserAsync(User user)
         {
             await _srvUser.AddAsync(user);
+            Response.StatusCode = (int)HttpStatusCode.Created;
         }
     }
 }

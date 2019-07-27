@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
@@ -30,6 +31,8 @@ namespace LuizaLabs.Application.Api.Controllers
         public async Task CreateProductAsync(Product product)
         {
             await _srvProduct.AddAsync(product);
+            Response.StatusCode = (int)HttpStatusCode.Created;
         }
     }
 }
+

@@ -76,11 +76,26 @@ namespace LuizaLabs.Application.Api
                         while (ex.InnerException != null)
                             ex = ex.InnerException;
 
-                        if (ex is ValidationException)
+                        switch (ex)
                         {
-                            context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                            mensagemErro = ex.Message;
+                            case ValidationException e:
+                                context.Response.StatusCode = (int)HttpStatusCode.BadRequest;
+                                mensagemErro = ex.Message;
+                                break;
+                            case AlreadyExistException e:
+                                context.Response.StatusCode = (int)HttpStatusCode.Conflict;
+                                mensagemErro = ex.Message;
+                                break;
+                            case NotFoundException e:
+                                context.Response.StatusCode = (int)HttpStatusCode.NotFound;
+                                mensagemErro = ex.Message;
+                                break;
+                            case NotContentException e:
+                                context.Response.StatusCode = (int)HttpStatusCode.NoContent;
+                                break;
                         }
+
+                        
                         
                     }
 
