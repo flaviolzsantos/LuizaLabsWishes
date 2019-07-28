@@ -47,3 +47,6 @@ A api utiliza conceitos do DDD para implementar as regras de negócio no dominio
   - Data : Todo acesso ao banco de dados ou qualquer outro sistema de persistencia de dados, temos a camada do repositório para nos auxiliar a entregar essa comunicação de forma fácil. Nesse projeto utilizamos um pattner de repositório, foi criado um classe para abstrair todos os metodos comuns entre as classes de repositórios, caso necessite de uma repositório mais específico, podemos usar as classes de especialização. Outro benefício nessa camada, é que podemos implementar algum serviço de cache, como exemplo Redis.
 
 4. UnitTest : Testes de unidade do projeto, dando mais integridade no código, protegendo sobre futuras alterações.
+
+# Postman
+Link para importar as chamadas da API : https://www.getpostman.com/collections/14c85ccdfbf0b614f437
