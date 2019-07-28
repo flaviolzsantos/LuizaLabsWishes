@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
 using LuizaLabs.Infra.Cross;
+using LuizaLabs.Infra.Cross.Config;
 using LuizaLabs.Infra.Data.Connection;
 using LuizaLabs.Infra.Data.Interfaces;
 using LuizaLabs.Infra.Data.Repository;
@@ -56,6 +57,7 @@ namespace LuizaLabs.Application.Api
             services.AddScoped<IRepWish, RepWish>();
             services.AddScoped<ISrvWish, SrvWish>();
             services.AddScoped<ISrvAuthentication, SrvAuthentication>();
+            services.AddScoped<Configuration>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
             .AddJwtBearer(options =>

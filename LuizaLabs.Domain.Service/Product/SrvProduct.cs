@@ -23,8 +23,7 @@ namespace LuizaLabs.Domain.Service
             if (product == null)
                 throw new NotContentException(string.Empty);
 
-            if(string.IsNullOrEmpty(product.Name))
-                throw new ValidationException("Nome requerido");
+            product.ValidateProduct();
 
             if (await _repProduct.HasName(product.Name))
                 throw new AlreadyExistException("Não foi possível cadastrar esse produto pois ele já está cadastrado");

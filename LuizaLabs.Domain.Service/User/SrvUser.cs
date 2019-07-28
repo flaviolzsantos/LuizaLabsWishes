@@ -23,8 +23,7 @@ namespace LuizaLabs.Domain.Service
             if (user == null)
                 throw new NotContentException(string.Empty);
 
-            if (string.IsNullOrEmpty(user.Name))
-                throw new ValidationException("Nome requerido");
+            user.ValidateUser();
 
             if (await _repUser.HasName(user.Name))
                 throw new AlreadyExistException("Não foi possível cadastrar esse usuário pois ele já está cadastrado");

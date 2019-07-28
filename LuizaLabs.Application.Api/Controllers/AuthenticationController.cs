@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace LuizaLabs.Application.Api.Controllers
 {
-    [Authorize]
     [Route("auth")]
     [ApiController]
     public class AuthenticationController : ControllerBase

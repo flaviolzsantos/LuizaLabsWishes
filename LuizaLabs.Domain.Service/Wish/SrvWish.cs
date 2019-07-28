@@ -25,26 +25,15 @@ namespace LuizaLabs.Domain.Service
         public async Task CreateWishesAsync(List<Wish> listWishProducts, string userId)
         {
             User user = await _srvUser.GetUserAsync(userId);
-            user.Wishes = await _srvProduct.GetProductAsync(listWishProducts);
+            user.AddWishes(await _srvProduct.GetProductAsync(listWishProducts));
             await _srvUser.UpdateUserAsync(user);
         }
 
         public async Task<IEnumerable<Product>> GetPaginationAsync(int pageSize, int page, string userId)
         {
-            if (page <= 0 || pageSize < 0)
-                throw new ValidationException("Páginação incorreta");
-
             User user = await _srvUser.GetUserAsync(userId);
-
-            if (user.Wishes == null || !user.Wishes.Any())
-                throw new NotFoundException("Lista de desejo não encontrada");
-
-            IEnumerable<Product> listProducts = user.Wishes.Skip(pageSize * (page-1)).Take(pageSize);
-
-            if (!listProducts.Any())
-                throw new NotFoundException("Lista de desejo não encontrada");
-
-            return listProducts;
+            user.ValidateWishes();
+            return user.GetWishesPagination(pageSize, page);
         }
 
     }
