@@ -25,10 +25,16 @@ namespace LuizaLabs.Domain.Entities
                 throw new ValidationException("Usuário ou senha incorreto");
         }
 
-        public object GerarJWT(string chaveSecreta)
+        public object GerarJWT(string keySecret)
         {
-            if (string.IsNullOrWhiteSpace(chaveSecreta))
-                throw new ValidationException("Chave não informada.");
+            if (string.IsNullOrWhiteSpace(keySecret))
+                throw new ValidationException("Chave de autenticação não informada.");
+
+            if (string.IsNullOrEmpty(Login))
+                throw new ValidationException("Login é requerido");
+
+            if (keySecret.Length <= 15)
+                throw new ValidationException("Chave de autenticação incorreta");
 
             var claims = new List<Claim>()
             {
@@ -36,10 +42,7 @@ namespace LuizaLabs.Domain.Entities
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            claims.Add(new Claim(ClaimTypes.Role, "API"));
-
-
-            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveSecreta));
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(keySecret));
 
             var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha512Signature);
 

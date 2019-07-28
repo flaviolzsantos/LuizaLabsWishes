@@ -1,23 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
-using System.Linq;
-using LuizaLabs.Infra.Cross;
-using LuizaLabs.Infra.Data.Interfaces;
 
 namespace LuizaLabs.Domain.Service
 {
     public class SrvWish : ISrvWish
     {
-        private readonly IRepWish _repWish;
         private readonly ISrvUser _srvUser;
         private readonly ISrvProduct _srvProduct;
 
-        public SrvWish(IRepWish repWish, ISrvUser srvUser, ISrvProduct srvProduct)
+        public SrvWish(ISrvUser srvUser, ISrvProduct srvProduct)
         {
-            _repWish = repWish;
             _srvUser = srvUser;
             _srvProduct = srvProduct;
         }

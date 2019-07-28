@@ -25,3 +25,5 @@
 /.vs/LuizaLabsWishes/config
 /LuizaLabs.Infra.Cross/obj
 /LuizaLabs.Infra.Cross/bin/Debug/netcoreapp2.2
+/LuizaLabs.UnitTest/bin/Debug/netcoreapp2.2
+/TestResults/

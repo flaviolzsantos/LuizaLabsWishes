@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace LuizaLabs.Domain.Entities
+﻿namespace LuizaLabs.Domain.Entities
 {
     public class Wish
     {

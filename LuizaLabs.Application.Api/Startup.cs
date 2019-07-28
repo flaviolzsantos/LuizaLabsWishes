@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
-using System.Threading.Tasks;
-using LuizaLabs.Domain.Entities;
 using LuizaLabs.Domain.Service;
 using LuizaLabs.Infra.Cross;
 using LuizaLabs.Infra.Cross.Config;
@@ -19,8 +15,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 
@@ -54,7 +48,6 @@ namespace LuizaLabs.Application.Api
             services.AddScoped<ISrvUser, SrvUser>();
             services.AddScoped<IRepProduct, RepProduct>();
             services.AddScoped<ISrvProduct, SrvProduct>();
-            services.AddScoped<IRepWish, RepWish>();
             services.AddScoped<ISrvWish, SrvWish>();
             services.AddScoped<ISrvAuthentication, SrvAuthentication>();
             services.AddScoped<Configuration>();

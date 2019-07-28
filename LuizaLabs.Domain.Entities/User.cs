@@ -1,8 +1,6 @@
 ﻿using LuizaLabs.Infra.Cross;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace LuizaLabs.Domain.Entities
 {
@@ -15,7 +13,7 @@ namespace LuizaLabs.Domain.Entities
 
         public void ValidateWishes()
         {
-            if (Wishes == null || Wishes.Any())
+            if (Wishes == null || !Wishes.Any())
                 throw new NotFoundException("Lista de desejo não encontrada");
         }
 
@@ -26,12 +24,29 @@ namespace LuizaLabs.Domain.Entities
 
             if (string.IsNullOrEmpty(Email))
                 throw new ValidationException("Email requerido");
+
+            if (!IsValidEmail(Email))
+                throw new ValidationException("Email Inválido");
+        }
+
+        bool IsValidEmail(string email)
+        {
+            try
+            {
+                return new System.Net.Mail.MailAddress(email).Address == email;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public IEnumerable<Product> GetWishesPagination(int pageSize, int page)
         {
             if (page <= 0 || pageSize < 0)
                 throw new ValidationException("Páginação incorreta");
+
+            ValidateWishes();
 
             IEnumerable<Product> listProducts = Wishes.Skip(pageSize * (page - 1)).Take(pageSize);
 
@@ -41,12 +56,6 @@ namespace LuizaLabs.Domain.Entities
             return listProducts;
         }
 
-        public void AddWishes(List<Product> products)
-        {
-            if (products == null)
-                throw new ValidationException("Não existe lista de desejo para adiciona ao usuário");
-
-            Wishes = products;
-        }
+        public void AddWishes(List<Product> products) => Wishes = products ?? throw new ValidationException("Não existe lista de desejo para adiciona ao usuário");
     }
 }

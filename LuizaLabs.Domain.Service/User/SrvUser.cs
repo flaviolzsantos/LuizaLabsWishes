@@ -1,10 +1,8 @@
 ﻿using LuizaLabs.Domain.Entities;
 using LuizaLabs.Infra.Cross;
 using LuizaLabs.Infra.Data.Interfaces;
-using LuizaLabs.Infra.Data.Repository;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using System.Linq;
 
@@ -38,7 +36,7 @@ namespace LuizaLabs.Domain.Service
 
             var list = await _repUser.GetPaginationAsync(pageSize, page, new string[] { "Id", "Name", "Email" });
 
-            if (!list.Any())
+            if (list == null || !list.Any())
                 throw new NotFoundException("Lista de usuário não encontrado");
 
             return list;
@@ -63,6 +61,14 @@ namespace LuizaLabs.Domain.Service
 
         public async Task UpdateUserAsync(User user)
         {
+            if (user == null)
+                throw new ValidationException("Usuário não pode ser nulo");
+
+            if(user.Id == null || user.Id == Guid.Empty)
+                throw new ValidationException("Usuário não pode ser alterado");
+
+            user.ValidateUser();
+
             await _repUser.Update(user, user.Id);
         }
 

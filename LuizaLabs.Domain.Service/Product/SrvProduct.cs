@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using LuizaLabs.Domain.Entities;
 using LuizaLabs.Infra.Cross;
 using LuizaLabs.Infra.Data.Interfaces;
-using LuizaLabs.Infra.Data.Repository;
 using System.Linq;
 
 namespace LuizaLabs.Domain.Service
@@ -33,6 +31,10 @@ namespace LuizaLabs.Domain.Service
 
         public async Task<List<Product>> GetPaginationAsync(int pageSize, int page)
         {
+
+            if (page <= 0 || pageSize < 0)
+                throw new ValidationException("Páginação incorreta");
+
             var list = await _repProduct.GetPaginationAsync(pageSize, page);
 
             if (!list.Any())
@@ -43,7 +45,7 @@ namespace LuizaLabs.Domain.Service
 
         public async Task<List<Product>> GetProductAsync(List<Wish> listWishProducts)
         {
-            if (!listWishProducts.Any())
+            if (listWishProducts == null || !listWishProducts.Any())
                 throw new NotContentException(string.Empty);
 
             List<Product> listProduct = new List<Product>();
